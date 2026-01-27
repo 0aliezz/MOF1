@@ -1,0 +1,5 @@
+{
+  "name": "MOF 智能吸附监测",
+  "description": "基于 IoT 的重金属 (Cu2+) 废水吸附监测仪表板，具有实时预测和闭环控制模拟功能。",
+  "requestFramePermissions": []
+}
