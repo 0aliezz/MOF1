@@ -105,7 +105,7 @@ const App: React.FC = () => {
             value={status === 'CRITICAL' ? '紧急' : status === 'WARNING' ? '警告' : status === 'NORMAL' ? '正常' : '离线'} 
             icon={Zap}
             status={status === 'CRITICAL' ? 'critical' : status === 'WARNING' ? 'warning' : 'normal'}
-            description={status === 'CRITICAL' ? '自动切换已触发' : '运行最佳'}
+            description={status === 'CRITICAL' ? '自动切换已触发' : ' '}
           />
         </div>
 
