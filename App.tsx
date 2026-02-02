@@ -230,7 +230,7 @@ const App: React.FC = () => {
                     </div>
                   </div>
                   <p className="text-xs text-slate-500 bg-slate-50 p-2 rounded border border-slate-100 leading-relaxed">
-                    <span className="font-semibold text-slate-700">说明:</span> 该值模拟流经 MOF 吸附柱的废水流速。增加流量将显著加快饱和速度，用于测试人工干预响应。
+                    <span className="font-semibold text-slate-700">说明:</span> 该值模拟流经 MOF 吸附柱的废水流速。增加流量将显著加快饱和速度。
                   </p>
                 </div>
              </div>
