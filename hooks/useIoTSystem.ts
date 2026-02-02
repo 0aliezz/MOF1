@@ -46,10 +46,18 @@ export const useIoTSystem = () => {
     setDataHistory([]);
     setCurrentSaturation(0);
     setStatus('NORMAL');
+    setFlowRate(DEFAULT_FLOW_RATE);
     addLog("系统重置启动。MOF 柱体再生完成。", 'ACTION');
     addLog(`参数校准: 最大吸附容量 ${MAX_LOAD_MG/1000} g (基于 250mg/g 标准)`, 'INFO');
     addLog("阀门已切换至主吸附柱 A。", 'INFO');
   };
+
+  const confirmMaintenance = useCallback(() => {
+    simulationState.current.accumulatedLoadMg = 0.0;
+    setCurrentSaturation(0);
+    setStatus('NORMAL');
+    addLog("人工确认：滤芯更换完成。系统恢复正常运行。", 'ACTION');
+  }, [addLog]);
 
   const toggleSystem = () => {
     if (!active) {
@@ -127,15 +135,8 @@ export const useIoTSystem = () => {
           if (status !== 'CRITICAL') {
              setStatus('CRITICAL');
              addLog(`[紧急预警] MOF 饱和度达 ${(saturation*100).toFixed(1)}%！即将穿透。`, 'ALERT');
-             addLog(`[自动指令] 触发阀门切换。开启备用吸附柱 B。`, 'ACTION');
-             addLog("[通知] 维护请求已发送：更换饱和滤芯并回收贵金属。", 'INFO');
-             
-             // 模拟切换由于是演示，这里重置一部分模拟量来展示“切换后效果”
-             setTimeout(() => {
-                simulationState.current.accumulatedLoadMg = 0.0;
-                setStatus('NORMAL');
-                addLog("备用柱 B 已激活。出水水质恢复正常。", 'INFO');
-             }, 4000);
+             addLog(`[系统通知] 已自动通知维修人员进行滤芯更换。`, 'INFO');
+             addLog(`[操作请求] 请人工确认更换吸附柱。`, 'ACTION');
           }
         } else if (saturation > 0.85 && status !== 'WARNING' && status !== 'CRITICAL') {
            setStatus('WARNING');
@@ -154,6 +155,7 @@ export const useIoTSystem = () => {
     active,
     toggleSystem,
     resetSystem,
+    confirmMaintenance,
     dataHistory,
     status,
     logs,
